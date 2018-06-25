@@ -14,6 +14,8 @@
 		FEAD530920E0874F007E3EA3 /* Uber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FEAD530720E0874F007E3EA3 /* Uber.xcdatamodeld */; };
 		FEAD530B20E08750007E3EA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEAD530A20E08750007E3EA3 /* Assets.xcassets */; };
 		FEAD530E20E08750007E3EA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEAD530C20E08750007E3EA3 /* LaunchScreen.storyboard */; };
+		FEB47A2620E180C9000A6A4F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB47A2520E180C9000A6A4F /* MainVC.swift */; };
+		FEB47A2E20E1969D000A6A4F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB47A2D20E1969D000A6A4F /* Enums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		FEAD530A20E08750007E3EA3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEAD530D20E08750007E3EA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FEAD530F20E08750007E3EA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FEB47A2520E180C9000A6A4F /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		FEB47A2D20E1969D000A6A4F /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,15 +84,41 @@
 		FEAD52FF20E0874F007E3EA3 /* Uber */ = {
 			isa = PBXGroup;
 			children = (
-				FEAD530020E0874F007E3EA3 /* AppDelegate.swift */,
-				FEAD530220E0874F007E3EA3 /* SideMenuController.swift */,
+				FEB47A2C20E19682000A6A4F /* Helpers */,
+				FEB47A2720E180E9000A6A4F /* Views */,
+				FEB47A2920E180FA000A6A4F /* Controller */,
 				FEAD530420E0874F007E3EA3 /* Main.storyboard */,
+				FEAD530020E0874F007E3EA3 /* AppDelegate.swift */,
 				FEAD530A20E08750007E3EA3 /* Assets.xcassets */,
 				FEAD530C20E08750007E3EA3 /* LaunchScreen.storyboard */,
 				FEAD530F20E08750007E3EA3 /* Info.plist */,
 				FEAD530720E0874F007E3EA3 /* Uber.xcdatamodeld */,
 			);
 			path = Uber;
+			sourceTree = "<group>";
+		};
+		FEB47A2720E180E9000A6A4F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FEB47A2920E180FA000A6A4F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FEAD530220E0874F007E3EA3 /* SideMenuController.swift */,
+				FEB47A2520E180C9000A6A4F /* MainVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FEB47A2C20E19682000A6A4F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FEB47A2D20E1969D000A6A4F /* Enums.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,8 +234,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEAD530920E0874F007E3EA3 /* Uber.xcdatamodeld in Sources */,
+				FEB47A2620E180C9000A6A4F /* MainVC.swift in Sources */,
 				FEAD530320E0874F007E3EA3 /* SideMenuController.swift in Sources */,
 				FEAD530120E0874F007E3EA3 /* AppDelegate.swift in Sources */,
+				FEB47A2E20E1969D000A6A4F /* Enums.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
