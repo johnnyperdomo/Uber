@@ -110,7 +110,7 @@
                                 <rect key="frame" x="20" y="628" width="255" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCc-FU-5HY" userLabel="Work">
-                                        <rect key="frame" x="48" y="16" width="41.333333333333343" height="21"/>
+                                        <rect key="frame" x="48" y="16" width="41.666666666666657" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -217,14 +217,14 @@
                                     <constraint firstItem="5vK-HG-G34" firstAttribute="top" secondItem="dcu-gN-Ehd" secondAttribute="top" constant="11" id="xYf-Qb-RiT"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8XC-8m-tYj">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8XC-8m-tYj">
                                 <rect key="frame" x="0.0" y="87" width="375" height="691"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDW-wL-bUh">
                                 <rect key="frame" x="20" y="127" width="335" height="126"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bk5-en-x9t">
-                                        <rect key="frame" x="97" y="20" width="140" height="22"/>
+                                        <rect key="frame" x="98" y="20" width="140" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="raV-oH-niw"/>
                                         </constraints>
@@ -233,7 +233,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pickup_location" translatesAutoresizingMaskIntoConstraints="NO" id="MWq-JW-fLj">
-                                        <rect key="frame" x="22" y="26" width="10" height="10"/>
+                                        <rect key="frame" x="23" y="26" width="10" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="MH6-wB-22t"/>
                                             <constraint firstAttribute="width" constant="10" id="Sq5-eE-wXi"/>
@@ -260,7 +260,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destination_location" translatesAutoresizingMaskIntoConstraints="NO" id="p9H-YR-b1B">
-                                        <rect key="frame" x="22" y="90" width="10" height="10"/>
+                                        <rect key="frame" x="23" y="90" width="10" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="Swq-1N-61z"/>
                                             <constraint firstAttribute="height" constant="10" id="uYv-Q7-M66"/>
@@ -283,7 +283,7 @@
                                     <constraint firstItem="Bk5-en-x9t" firstAttribute="leading" secondItem="MWq-JW-fLj" secondAttribute="trailing" constant="65" id="zoW-qo-tOz"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CxW-G7-LDW">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CxW-G7-LDW">
                                 <rect key="frame" x="0.0" y="600" width="375" height="178"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoW-qS-zvb">
@@ -400,7 +400,7 @@
                                     <constraint firstItem="yoW-qS-zvb" firstAttribute="leading" secondItem="CxW-G7-LDW" secondAttribute="leading" constant="8" id="cyy-aA-FZF"/>
                                 </constraints>
                             </view>
-                            <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GhA-pH-Q3J" customClass="Enums" customModule="Uber" customModuleProvider="target">
+                            <segmentedControl hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GhA-pH-Q3J" customClass="Enums" customModule="Uber" customModuleProvider="target">
                                 <rect key="frame" x="20" y="579" width="335" height="41"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
