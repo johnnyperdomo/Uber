@@ -283,7 +283,7 @@
                                     <constraint firstItem="Bk5-en-x9t" firstAttribute="leading" secondItem="MWq-JW-fLj" secondAttribute="trailing" constant="65" id="zoW-qo-tOz"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CxW-G7-LDW">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CxW-G7-LDW">
                                 <rect key="frame" x="0.0" y="600" width="375" height="178"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yoW-qS-zvb">
@@ -400,11 +400,7 @@
                                     <constraint firstItem="yoW-qS-zvb" firstAttribute="leading" secondItem="CxW-G7-LDW" secondAttribute="leading" constant="8" id="cyy-aA-FZF"/>
                                 </constraints>
                             </view>
-<<<<<<< HEAD
                             <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GhA-pH-Q3J">
-=======
-                            <segmentedControl hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GhA-pH-Q3J" customClass="Enums" customModule="Uber" customModuleProvider="target">
->>>>>>> mapkit
                                 <rect key="frame" x="20" y="579" width="335" height="41"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

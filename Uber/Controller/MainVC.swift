@@ -36,7 +36,6 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         locationManager.delegate = self
         centerMapOnUserLocation()
         checkLocationAuthorization()
-        
         requestRideBtn.layer.cornerRadius = 15
         destinationView.layer.cornerRadius = 10
         segmentControl.layer.cornerRadius = 20
@@ -96,7 +95,6 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         centerMapOnUserLocation()
     }
-    
     
 }
 
