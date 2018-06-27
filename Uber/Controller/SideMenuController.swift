@@ -30,7 +30,8 @@ class SideMenuController: UIViewController {
     
     
     @IBAction func homeLocationBtnPressed(_ sender: Any) {
-        print("home pressed")
+        let setHomeVC = storyboard?.instantiateViewController(withIdentifier: "SetHomeVC")
+        present(setHomeVC!, animated: true, completion: nil)
     }
     
     @IBAction func workLocationBtnPressed(_ sender: Any) {

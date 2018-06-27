@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D352903C269B195E7FA778BA /* Pods_Uber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8EABA37EA150E6A663167F7 /* Pods_Uber.framework */; };
+		FE7AA3FE20E433CD00D63819 /* SetHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7AA3FD20E433CD00D63819 /* SetHomeVC.swift */; };
 		FEAD530120E0874F007E3EA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD530020E0874F007E3EA3 /* AppDelegate.swift */; };
 		FEAD530320E0874F007E3EA3 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD530220E0874F007E3EA3 /* SideMenuController.swift */; };
 		FEAD530620E0874F007E3EA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FEAD530420E0874F007E3EA3 /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 		2EF741F43AF01938E6C92C95 /* Pods-Uber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Uber/Pods-Uber.debug.xcconfig"; sourceTree = "<group>"; };
 		D8EABA37EA150E6A663167F7 /* Pods_Uber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11D06E13EF1921447DFDAA6 /* Pods-Uber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Uber/Pods-Uber.release.xcconfig"; sourceTree = "<group>"; };
+		FE7AA3FD20E433CD00D63819 /* SetHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHomeVC.swift; sourceTree = "<group>"; };
 		FEAD52FD20E0874F007E3EA3 /* Uber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEAD530020E0874F007E3EA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FEAD530220E0874F007E3EA3 /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				FEAD530220E0874F007E3EA3 /* SideMenuController.swift */,
 				FEB47A2520E180C9000A6A4F /* MainVC.swift */,
+				FE7AA3FD20E433CD00D63819 /* SetHomeVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			files = (
 				FEAD530920E0874F007E3EA3 /* Uber.xcdatamodeld in Sources */,
 				FEB47A2620E180C9000A6A4F /* MainVC.swift in Sources */,
+				FE7AA3FE20E433CD00D63819 /* SetHomeVC.swift in Sources */,
 				FEAD530320E0874F007E3EA3 /* SideMenuController.swift in Sources */,
 				FEAD530120E0874F007E3EA3 /* AppDelegate.swift in Sources */,
 				FEB47A2E20E1969D000A6A4F /* Enums.swift in Sources */,

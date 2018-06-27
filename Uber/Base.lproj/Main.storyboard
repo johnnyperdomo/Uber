@@ -452,7 +452,56 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o21-7I-C1X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1687.2" y="133.00492610837438"/>
+            <point key="canvasLocation" x="1850" y="-242"/>
+        </scene>
+        <!--Set HomeVC-->
+        <scene sceneID="oAh-EW-PBD">
+            <objects>
+                <viewController storyboardIdentifier="SetHomeVC" id="e8q-fk-bOO" customClass="SetHomeVC" customModule="Uber" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ISj-Wi-yWg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j70-Gl-IX7">
+                                <rect key="frame" x="0.0" y="44" width="375" height="43"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UBER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSN-33-fAN">
+                                        <rect key="frame" x="164" y="11" width="47" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="19o-rg-EdT">
+                                        <rect key="frame" x="35" y="11" width="17" height="22"/>
+                                        <state key="normal" image="back_btn"/>
+                                        <connections>
+                                            <action selector="backBtnPressed:" destination="e8q-fk-bOO" eventType="touchUpInside" id="GtB-Mg-eWc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.2627450980392157" green="0.61568627450980395" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="19o-rg-EdT" firstAttribute="leading" secondItem="j70-Gl-IX7" secondAttribute="leading" constant="35" id="JXw-6K-EeN"/>
+                                    <constraint firstItem="19o-rg-EdT" firstAttribute="top" secondItem="j70-Gl-IX7" secondAttribute="top" constant="11" id="hKr-4N-EFg"/>
+                                    <constraint firstItem="jSN-33-fAN" firstAttribute="centerY" secondItem="j70-Gl-IX7" secondAttribute="centerY" id="sg4-O9-uIi"/>
+                                    <constraint firstItem="19o-rg-EdT" firstAttribute="centerY" secondItem="j70-Gl-IX7" secondAttribute="centerY" id="vcm-Y8-qnE"/>
+                                    <constraint firstItem="jSN-33-fAN" firstAttribute="centerX" secondItem="j70-Gl-IX7" secondAttribute="centerX" id="vnS-ZF-UOe"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2627450980392157" green="0.61568627450980395" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="j70-Gl-IX7" firstAttribute="trailing" secondItem="dWK-Oj-8fx" secondAttribute="trailing" id="1gq-o3-yOB"/>
+                            <constraint firstItem="dWK-Oj-8fx" firstAttribute="bottom" secondItem="j70-Gl-IX7" secondAttribute="bottom" constant="691" id="7g0-4n-ZTM"/>
+                            <constraint firstItem="j70-Gl-IX7" firstAttribute="top" secondItem="dWK-Oj-8fx" secondAttribute="top" id="Dnj-a0-s7p"/>
+                            <constraint firstItem="j70-Gl-IX7" firstAttribute="leading" secondItem="dWK-Oj-8fx" secondAttribute="leading" id="FOA-X9-Ldx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dWK-Oj-8fx"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N9j-VP-9dM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1574" y="134"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="Cqm-ux-lkO">
@@ -481,6 +530,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back_btn" width="17" height="15"/>
         <image name="destination_location" width="8" height="8"/>
         <image name="face2" width="2084" height="2180"/>
         <image name="home_icon" width="15" height="13"/>
