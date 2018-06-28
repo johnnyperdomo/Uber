@@ -50,7 +50,8 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     
     @IBAction func enterLocationBtnPressed(_ sender: Any) {
-        print("Enter Location")
+        let pickDestinationVC = storyboard?.instantiateViewController(withIdentifier: "PickDestinationVC")
+        present(pickDestinationVC!, animated: true, completion: nil)
     }
     @IBAction func requestRideBtnPressed(_ sender: Any) {
         print("Request Ride")

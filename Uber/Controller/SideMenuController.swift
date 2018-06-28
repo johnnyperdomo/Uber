@@ -38,7 +38,8 @@ class SideMenuController: UIViewController {
     }
     
     @IBAction func workLocationBtnPressed(_ sender: Any) {
-        print("work pressed")
+        let setWorkVC = storyboard?.instantiateViewController(withIdentifier: "SetWorkVC")
+        present(setWorkVC!, animated: true, completion: nil)
     }
     
 }
