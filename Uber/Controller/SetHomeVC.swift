@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class SetHomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SetHomeVC: UIViewController  {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
@@ -35,12 +35,15 @@ class SetHomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+}
+
+extension SetHomeVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return searchResults.count
+        return searchResults.count
     }
     
     
@@ -52,19 +55,24 @@ class SetHomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.detailTxtLbl.text = searchResult.subtitle
         
         return cell
-        
     }
     
-    
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let indexPath = tableView.indexPathForSelectedRow
+        let currentCell = tableView.cellForRow(at: indexPath!) as! SearchCompletionCell
+        
+        let detailTxt = currentCell.detailTxtLbl.text
+        
+        searchBar.text = detailTxt
+    }
 }
+
 
 extension SetHomeVC: MKLocalSearchCompleterDelegate {
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
         searchTableView.reloadData()
-        print("results successful")
     }
 }
 

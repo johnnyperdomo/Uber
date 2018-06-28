@@ -14,8 +14,11 @@ class SideMenuController: UIViewController {
     let sideMenu = SideMenuManager.default
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var homeLocationLbl: UILabel!
-    @IBOutlet weak var workLocationLbl: UILabel!
+    @IBOutlet weak var homeSubLocationLbl: UILabel!
+    @IBOutlet weak var homeTitleLocationLbl: UILabel!
+    @IBOutlet weak var workSubLocationLbl: UILabel!
+    @IBOutlet weak var workTitleLocationLbl: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

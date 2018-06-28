@@ -174,9 +174,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="UBER" id="wym-8C-G80"/>
                     <connections>
-                        <outlet property="homeLocationLbl" destination="Dov-U9-0nR" id="0Vx-H1-koA"/>
+                        <outlet property="homeSubLocationLbl" destination="Dov-U9-0nR" id="0Vx-H1-koA"/>
+                        <outlet property="homeTitleLocationLbl" destination="k4G-eU-d8p" id="tqP-1M-9MS"/>
                         <outlet property="imageView" destination="O7j-QC-nO6" id="pHR-wz-4vF"/>
-                        <outlet property="workLocationLbl" destination="Ahg-Po-WbX" id="Dda-in-vFU"/>
+                        <outlet property="workSubLocationLbl" destination="Ahg-Po-WbX" id="Dda-in-vFU"/>
+                        <outlet property="workTitleLocationLbl" destination="kCc-FU-5HY" id="nAA-MD-t9g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -498,9 +500,13 @@
                                     <constraint firstItem="jSN-33-fAN" firstAttribute="centerX" secondItem="j70-Gl-IX7" secondAttribute="centerX" id="vnS-ZF-UOe"/>
                                 </constraints>
                             </view>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="gBH-lx-gYP">
+                            <searchBar contentMode="center" placeholder="Find a Destination" translatesAutoresizingMaskIntoConstraints="NO" id="gBH-lx-gYP">
                                 <rect key="frame" x="0.0" y="87" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ST-Ef-mSK">
                                 <rect key="frame" x="0.0" y="143" width="375" height="635"/>
@@ -519,7 +525,7 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxJ-Gj-Lhj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target street 123,fl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxJ-Gj-Lhj">
                                                     <rect key="frame" x="40" y="43" width="295" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -561,27 +567,10 @@
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="gBH-lx-gYP" id="oQd-vD-zjy"/>
-                        <outlet property="searchDisplayController" destination="3ne-DI-kl7" id="foZ-1N-giZ"/>
                         <outlet property="searchTableView" destination="0ST-Ef-mSK" id="xQO-kC-MbJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N9j-VP-9dM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="oNV-k0-3Ly">
-                    <connections>
-                        <outlet property="delegate" destination="e8q-fk-bOO" id="l7z-NJ-zn0"/>
-                        <outlet property="searchContentsController" destination="e8q-fk-bOO" id="D3P-lg-ulP"/>
-                        <outlet property="searchResultsDataSource" destination="e8q-fk-bOO" id="PgX-UZ-90g"/>
-                        <outlet property="searchResultsDelegate" destination="e8q-fk-bOO" id="V5k-Ju-zsh"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="3ne-DI-kl7">
-                    <connections>
-                        <outlet property="delegate" destination="e8q-fk-bOO" id="zv9-E8-Rhx"/>
-                        <outlet property="searchContentsController" destination="e8q-fk-bOO" id="COb-61-PDa"/>
-                        <outlet property="searchResultsDataSource" destination="e8q-fk-bOO" id="fxl-Gq-ef6"/>
-                        <outlet property="searchResultsDelegate" destination="e8q-fk-bOO" id="nlq-85-i14"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1692" y="517.98029556650249"/>
         </scene>
