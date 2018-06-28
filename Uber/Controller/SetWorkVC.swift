@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class SetWorkVC: UIViewController {
 
@@ -16,6 +17,9 @@ class SetWorkVC: UIViewController {
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+    var workLocation: [NSManagedObject] = []
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +34,25 @@ class SetWorkVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
-    @IBAction func setBtnPressed(_ sender: Any) {
+    func saveAddress(address: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "WorkFavorite", in: managedContext)
+        let workFavorite = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        workFavorite.setValue(address, forKey: "address")
+        
+        do {
+            try managedContext.save()
+            workLocation.append(workFavorite) //add it to array
+            print("save workFavorite success")
+        } catch {
+            print("Could not save. \(error.localizedDescription)")
+        }
+        
         
     }
-    
 }
 
 extension SetWorkVC: UITableViewDelegate, UITableViewDataSource {
@@ -62,8 +80,12 @@ extension SetWorkVC: UITableViewDelegate, UITableViewDataSource {
         let currentCell = tableView.cellForRow(at: indexPath!) as! SearchCompletionCell
         
         let detailTxt = currentCell.detailTxtLbl.text
-        
         searchBar.text = detailTxt
+        
+        self.saveAddress(address: searchBar.text!)
+        
+        print("save work data")
+        dismiss(animated: true, completion: nil)
     }
 }
 

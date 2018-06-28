@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class SetHomeVC: UIViewController  {
 
@@ -16,6 +17,7 @@ class SetHomeVC: UIViewController  {
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+    var homeLocation: [NSManagedObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +32,24 @@ class SetHomeVC: UIViewController  {
         dismiss(animated: true, completion: nil)
     }
     
-    
-    @IBAction func setBtnPressed(_ sender: Any) {
+  
+    func saveAddress(address: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "HomeFavorite", in: managedContext)
+        let homeFavorite = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        homeFavorite.setValue(address, forKey: "address")
+        
+        do {
+            try managedContext.save()
+            homeLocation.append(homeFavorite) //add it to array
+            print("save homeFavorite Success")
+        } catch {
+            print("Could not save. \(error.localizedDescription)")
+        }
+        
         
     }
     
@@ -62,8 +80,12 @@ extension SetHomeVC: UITableViewDelegate, UITableViewDataSource {
         let currentCell = tableView.cellForRow(at: indexPath!) as! SearchCompletionCell
         
         let detailTxt = currentCell.detailTxtLbl.text
-        
         searchBar.text = detailTxt
+        
+        self.saveAddress(address: searchBar.text!)
+        
+        print("save home data")
+        dismiss(animated: true, completion: nil)
     }
 }
 

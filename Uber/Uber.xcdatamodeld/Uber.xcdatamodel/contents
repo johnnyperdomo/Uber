@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HomeFavorite" representedClassName="HomeFavorite" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="RecentSearches" representedClassName="RecentSearches" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TripDetails" representedClassName="TripDetails" syncable="YES" codeGenerationType="class">
+        <attribute name="carType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="driverImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="driverName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dropOffLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pickupLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WorkFavorite" representedClassName="WorkFavorite" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="HomeFavorite" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="WorkFavorite" positionX="-54" positionY="0" width="128" height="60"/>
+        <element name="RecentSearches" positionX="-36" positionY="18" width="128" height="60"/>
+        <element name="TripDetails" positionX="-18" positionY="36" width="128" height="135"/>
+    </elements>
 </model>
