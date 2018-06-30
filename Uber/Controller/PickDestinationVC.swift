@@ -21,6 +21,7 @@ class PickDestinationVC: UIViewController {
     @IBOutlet weak var homeAddressLabel: UILabel!
     @IBOutlet weak var workAddressLabel: UILabel!
     @IBOutlet weak var recentTableView: UITableView!
+    @IBOutlet weak var recentSearchesLabel: UILabel!
     
     var homeLocation: [NSManagedObject] = []
     var workLocation: [NSManagedObject] = []
@@ -40,19 +41,28 @@ class PickDestinationVC: UIViewController {
         
         homeBtnView.layer.cornerRadius = 15
         workBtnView.layer.cornerRadius = 15
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         fetchHomeFavorite()
         fetchWorkFavorite()
         fetchRecentSearches()
-        print("recent searches \(recentSearches.count)")
-        print("home locations\(homeLocation.count)")
+        
+        self.recentSearches =  recentSearches.reversed()
+        recentTableView.reloadData()
+        
+        if recentSearches.count == 0 {
+            recentSearchesLabel.isHidden = true
+        } else {
+            recentSearchesLabel.isHidden = false
+        }
+        
+        
+        print(recentSearches.count)
     }
+    
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -193,7 +203,12 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //mult
             count = searchResults.count
         }
         if tableView == self.recentTableView {
-            count = 3
+            if recentSearches.count < 3 {
+                count = recentSearches.count
+            } else {
+                count = 3
+            }
+            
         }
         
         return count!
@@ -214,19 +229,38 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //mult
         }
         
         if tableView == self.recentTableView {
-            guard let cell = recentTableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as? RecentSearchCell else {return UITableViewCell()}
-            
-            let recentPlace = recentSearches[indexPath.row]
-            
-            let address = recentPlace.value(forKey: "address") as? String
-            
-            cell.configureCell(addressLbl: address!, recentImageIcon: UIImage(named: "history_icon")!)
-            
-            cells = cell
+
+            if recentSearches.count == 0 {
+                
+                guard let cell = recentTableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as? RecentSearchCell else {return UITableViewCell()}
+                
+                
+                recentTableView.isHidden = true
+                
+                cells = cell
+                
+            } else if recentSearches.count > 0 {
+                
+                guard let cell = recentTableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as? RecentSearchCell else {return UITableViewCell()}
+                
+                recentTableView.isHidden = false
+                
+                let recentPlace = recentSearches[indexPath.row]
+
+                let address = recentPlace.value(forKey: "address") as? String
+
+                cell.configureCell(addressLbl: address!, recentImageIcon: UIImage(named: "history_icon")!)
+
+                cell.layer.cornerRadius = 15
+                cell.layer.borderColor = #colorLiteral(red: 0.3764705882, green: 0.6274509804, blue: 0.9019607843, alpha: 1)
+                cell.layer.borderWidth = 2
+                
+                cells = cell
+            }
         }
+    
         
-        
-        
+
         return cells!
     }
     

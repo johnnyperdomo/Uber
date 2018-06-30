@@ -908,9 +908,9 @@
                                         <color key="textColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vZ1-dm-6TA">
+                                    <tableView clipsSubviews="YES" contentMode="scaleAspectFit" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vZ1-dm-6TA">
                                         <rect key="frame" x="20" y="272.33333333333326" width="335" height="277.66666666666674"/>
-                                        <color key="backgroundColor" red="0.0" green="0.32852089410000002" blue="0.57488495110000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="separatorColor" red="0.29803921570000003" green="0.63137254899999995" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recentSearchCell" rowHeight="70" id="Pbr-dV-9UT" customClass="RecentSearchCell" customModule="Uber" customModuleProvider="target">
@@ -1004,6 +1004,7 @@
                         <outlet property="homeAddressLabel" destination="YnY-U1-vnc" id="jVh-7p-98n"/>
                         <outlet property="homeBtnView" destination="cgs-ce-Bxe" id="kzD-p3-jcv"/>
                         <outlet property="quickAccessView" destination="3wq-Y0-19c" id="uh0-AO-NXA"/>
+                        <outlet property="recentSearchesLabel" destination="rzF-Ma-LQ3" id="OWL-u0-ayB"/>
                         <outlet property="recentTableView" destination="vZ1-dm-6TA" id="eUg-Jp-CqL"/>
                         <outlet property="searchBar" destination="dcr-Ff-Myi" id="0Ea-Yf-dTG"/>
                         <outlet property="searchTableView" destination="TzV-s8-2ke" id="wGM-03-H2o"/>
