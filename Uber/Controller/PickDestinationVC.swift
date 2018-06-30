@@ -24,6 +24,7 @@ class PickDestinationVC: UIViewController {
     
     var homeLocation: [NSManagedObject] = []
     var workLocation: [NSManagedObject] = []
+    var recentSearches: [NSManagedObject] = []
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -34,9 +35,13 @@ class PickDestinationVC: UIViewController {
         searchCompleter.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
+        recentTableView.delegate = self
+        recentTableView.dataSource = self
         
         homeBtnView.layer.cornerRadius = 15
         workBtnView.layer.cornerRadius = 15
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +49,9 @@ class PickDestinationVC: UIViewController {
         
         fetchHomeFavorite()
         fetchWorkFavorite()
+        fetchRecentSearches()
+        print("recent searches \(recentSearches.count)")
+        print("home locations\(homeLocation.count)")
     }
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -75,6 +83,10 @@ class PickDestinationVC: UIViewController {
             print("2")
         }
     }
+}
+    
+
+extension PickDestinationVC { //core data functions
     
     func fetchHomeFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -99,6 +111,18 @@ class PickDestinationVC: UIViewController {
         
     }
     
+    func fetchRecentSearches() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "RecentSearches")
+        
+        do {
+            recentSearches = try managedContext.fetch(fetchRequest)
+        } catch {
+            print("Could not fetch. \(error.localizedDescription)")
+        }
+        
+    }
     func fetchWorkFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
@@ -121,26 +145,89 @@ class PickDestinationVC: UIViewController {
         }
         
     }
+    
+    func saveRecentSearch(address: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "RecentSearches", in: managedContext)
+        let recentSearch = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        recentSearch.setValue(address, forKey: "address")
+        
+        do {
+            try managedContext.save()
+            recentSearches.append(recentSearch) //add it to array
+            print("save recent Search Success")
+        } catch {
+            print("Could not save. \(error.localizedDescription)")
+        }
+        
+    }
+    
 }
 
-extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource {
+
+
+
+extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //multiple tableViews
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        
+        var count: Int?
+        
+        if tableView == self.recentTableView {
+            count = 1
+        }
+        
+        if tableView == self.searchTableView {
+            count = 1
+        }
+        
+        return count!
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResults.count
+        var count: Int?
+        
+        if tableView == self.searchTableView {
+            count = searchResults.count
+        }
+        if tableView == self.recentTableView {
+            count = 3
+        }
+        
+        return count!
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "searchCompletionCell", for: indexPath) as? SearchCompletionCell else {return UITableViewCell()}
-        let searchResult = searchResults[indexPath.row]
         
-        cell.textLbl.text = searchResult.title
-        cell.detailTxtLbl.text = searchResult.subtitle
+        var cells: UITableViewCell?
         
-        return cell
+        if tableView == self.searchTableView {
+            guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "searchCompletionCell", for: indexPath) as? SearchCompletionCell else {return UITableViewCell()}
+            let searchResult = searchResults[indexPath.row]
+            
+            cell.textLbl.text = searchResult.title
+            cell.detailTxtLbl.text = searchResult.subtitle
+            cells = cell
+        }
+        
+        if tableView == self.recentTableView {
+            guard let cell = recentTableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as? RecentSearchCell else {return UITableViewCell()}
+            
+            let recentPlace = recentSearches[indexPath.row]
+            
+            let address = recentPlace.value(forKey: "address") as? String
+            
+            cell.configureCell(addressLbl: address!, recentImageIcon: UIImage(named: "history_icon")!)
+            
+            cells = cell
+        }
+        
+        
+        
+        return cells!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -150,7 +237,12 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource {
         let detailTxt = currentCell.detailTxtLbl.text
         
         searchBar.text = detailTxt
+        
+        self.saveRecentSearch(address: searchBar.text!)
+        
+        dismiss(animated: true, completion: nil)
     }
+    
 }
 
 

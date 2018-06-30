@@ -49,8 +49,7 @@ class SetHomeVC: UIViewController  {
         } catch {
             print("Could not save. \(error.localizedDescription)")
         }
-        
-        
+ 
     }
     
 }
