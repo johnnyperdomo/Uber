@@ -13,6 +13,13 @@ class PickDestinationVC: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
+    @IBOutlet weak var goBtn: UIButton!
+    @IBOutlet weak var quickAccessView: UIView!
+    @IBOutlet weak var homeBtnView: UIView!
+    @IBOutlet weak var workBtnView: UIView!
+    @IBOutlet weak var homeAddressLabel: UILabel!
+    @IBOutlet weak var workAddressLabel: UILabel!
+    @IBOutlet weak var recentTableView: UITableView!
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -23,6 +30,9 @@ class PickDestinationVC: UIViewController {
         searchCompleter.delegate = self
         searchTableView.delegate = self
         searchTableView.dataSource = self
+        
+        homeBtnView.layer.cornerRadius = 15
+        workBtnView.layer.cornerRadius = 15
     }
     
     
@@ -32,8 +42,17 @@ class PickDestinationVC: UIViewController {
     
     
     @IBAction func goBtnPressed(_ sender: Any) {
-        
+        print("btn works")
     }
+    
+    @IBAction func homeBtnPressed(_ sender: Any) {
+        print("1")
+    }
+    
+    @IBAction func workBtnPressed(_ sender: Any) {
+        print("2")
+    }
+    
     
 }
 
@@ -82,6 +101,13 @@ extension PickDestinationVC: UISearchBarDelegate {
         
         if !searchText.isEmpty {
             searchCompleter.queryFragment = searchBar.text!
+            searchTableView.isHidden = false
+            goBtn.isHidden = false
+            quickAccessView.isHidden = true
+        } else {
+            searchTableView.isHidden = true
+            goBtn.isHidden = true
+            quickAccessView.isHidden = false
         }
     }
 }
