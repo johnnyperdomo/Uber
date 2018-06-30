@@ -64,9 +64,6 @@ class SideMenuController: UIViewController {
             } else {
                 print("no home core data objects")
             }
-            
-            
-            
         } catch {
             print("Could not fetch. \(error.localizedDescription)")
         }
@@ -90,9 +87,6 @@ class SideMenuController: UIViewController {
             } else {
                 print("no work core data objects")
             }
-            
-            
-            
         } catch {
             print("Could not fetch. \(error.localizedDescription)")
         }

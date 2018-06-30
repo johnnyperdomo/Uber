@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class PickDestinationVC: UIViewController {
 
@@ -20,6 +21,9 @@ class PickDestinationVC: UIViewController {
     @IBOutlet weak var homeAddressLabel: UILabel!
     @IBOutlet weak var workAddressLabel: UILabel!
     @IBOutlet weak var recentTableView: UITableView!
+    
+    var homeLocation: [NSManagedObject] = []
+    var workLocation: [NSManagedObject] = []
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -35,7 +39,12 @@ class PickDestinationVC: UIViewController {
         workBtnView.layer.cornerRadius = 15
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchHomeFavorite()
+        fetchWorkFavorite()
+    }
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -46,14 +55,72 @@ class PickDestinationVC: UIViewController {
     }
     
     @IBAction func homeBtnPressed(_ sender: Any) {
-        print("1")
+        
+        if homeAddressLabel.text == "Set a Destination" {
+            let setHomeVC = storyboard?.instantiateViewController(withIdentifier: "SetHomeVC")
+            present(setHomeVC!, animated: true, completion: nil)
+            fetchHomeFavorite()
+        } else {
+            print("1")
+        }
+        
     }
     
     @IBAction func workBtnPressed(_ sender: Any) {
-        print("2")
+        if workAddressLabel.text == "Set a Destination" {
+            let setWorkVC = storyboard?.instantiateViewController(withIdentifier: "SetWorkVC")
+            present(setWorkVC!, animated: true, completion: nil)
+            fetchWorkFavorite()
+        } else {
+            print("2")
+        }
     }
     
+    func fetchHomeFavorite() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "HomeFavorite")
+        
+        do {
+            homeLocation = try managedContext.fetch(fetchRequest)
+            
+            if homeLocation.count > 0 {
+                for result in homeLocation {
+                    let address = result.value(forKey: "address") as! String
+                    homeAddressLabel.text = "\(address)"
+                    print("fetch home location success")
+                }
+            } else {
+                print("no home core data objects")
+            }
+        } catch {
+            print("Could not fetch. \(error.localizedDescription)")
+        }
+        
+    }
     
+    func fetchWorkFavorite() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "WorkFavorite")
+        
+        do {
+            workLocation = try managedContext.fetch(fetchRequest)
+            
+            if workLocation.count > 0 {
+                for result in workLocation {
+                    let address = result.value(forKey: "address") as! String
+                    workAddressLabel.text = "\(address)"
+                    print("fetch work location success")
+                }
+            } else {
+                print("no work core data objects")
+            }
+        } catch {
+            print("Could not fetch. \(error.localizedDescription)")
+        }
+        
+    }
 }
 
 extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource {
