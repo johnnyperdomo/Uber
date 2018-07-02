@@ -11,12 +11,10 @@ import UIKit
 class RecentSearchCell: UITableViewCell {
 
     @IBOutlet weak var addressLbl: UILabel!
-    @IBOutlet weak var recentImageIcon: UIImageView!
     
     
-    func configureCell(addressLbl: String, recentImageIcon: UIImage) {
+    func configureCell(addressLbl: String) {
         self.addressLbl.text = addressLbl
-        self.recentImageIcon.image = recentImageIcon
     }
 
 }

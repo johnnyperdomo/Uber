@@ -79,7 +79,9 @@ class PickDestinationVC: UIViewController {
             present(setHomeVC!, animated: true, completion: nil)
             fetchHomeFavorite()
         } else {
-            print("1")
+            searchBar.text = homeAddressLabel.text
+            print("home favorite address clicked")
+            dismiss(animated: true, completion: nil)
         }
         
     }
@@ -90,7 +92,10 @@ class PickDestinationVC: UIViewController {
             present(setWorkVC!, animated: true, completion: nil)
             fetchWorkFavorite()
         } else {
-            print("2")
+            searchBar.text = workAddressLabel.text
+            print("work favorite address clicked")
+            dismiss(animated: true, completion: nil)
+            
         }
     }
 }
@@ -249,7 +254,7 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //mult
 
                 let address = recentPlace.value(forKey: "address") as? String
 
-                cell.configureCell(addressLbl: address!, recentImageIcon: UIImage(named: "history_icon")!)
+                cell.configureCell(addressLbl: address!)
 
                 cell.layer.cornerRadius = 15
                 cell.layer.borderColor = #colorLiteral(red: 0.3764705882, green: 0.6274509804, blue: 0.9019607843, alpha: 1)
@@ -265,16 +270,39 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //mult
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow
-        let currentCell = tableView.cellForRow(at: indexPath!) as! SearchCompletionCell
         
-        let detailTxt = currentCell.detailTxtLbl.text
         
-        searchBar.text = detailTxt
+        if tableView == self.searchTableView {
+            let indexPath = tableView.indexPathForSelectedRow
+            let currentCell = tableView.cellForRow(at: indexPath!) as! SearchCompletionCell
+            
+            let detailTxt = currentCell.detailTxtLbl.text
+            
+            searchBar.text = detailTxt
+            
+            self.saveRecentSearch(address: searchBar.text!)
+            print("search cell clicked")
+            dismiss(animated: true, completion: nil)
+        }
         
-        self.saveRecentSearch(address: searchBar.text!)
+        if tableView == self.recentTableView {
+            let indexPath = tableView.indexPathForSelectedRow
+            let currentCell = tableView.cellForRow(at: indexPath!) as! RecentSearchCell
+            
+            let address = currentCell.addressLbl.text
+            
+            searchBar.text = address
+            
+            print("recent history cell clicked")
+            
+            dismiss(animated: true, completion: nil)
+            
+
+
+        }
         
-        dismiss(animated: true, completion: nil)
+        
+        
     }
     
 }
