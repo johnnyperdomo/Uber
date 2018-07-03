@@ -14,7 +14,6 @@ class PickDestinationVC: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
-    @IBOutlet weak var goBtn: UIButton!
     @IBOutlet weak var quickAccessView: UIView!
     @IBOutlet weak var homeBtnView: UIView!
     @IBOutlet weak var workBtnView: UIView!
@@ -66,11 +65,6 @@ class PickDestinationVC: UIViewController {
     
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    
-    @IBAction func goBtnPressed(_ sender: Any) {
-        print("btn works")
     }
     
     @IBAction func homeBtnPressed(_ sender: Any) {
@@ -344,11 +338,9 @@ extension PickDestinationVC: UISearchBarDelegate {
         if !searchText.isEmpty {
             searchCompleter.queryFragment = searchBar.text!
             searchTableView.isHidden = false
-            goBtn.isHidden = false
             quickAccessView.isHidden = true
         } else {
             searchTableView.isHidden = true
-            goBtn.isHidden = true
             quickAccessView.isHidden = false
         }
     }

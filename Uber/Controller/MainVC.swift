@@ -20,7 +20,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var fareLbl: UILabel!
     @IBOutlet weak var maxSizeLbl: UILabel!
     @IBOutlet weak var requestRideBtn: UIButton!
-    @IBOutlet weak var enterDestinationBtn: UIButton!
+    @IBOutlet weak var enterDestinationLbl: UILabel!
     
     var carType = CarType.uberPool
     
@@ -105,12 +105,6 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         centerMapOnUserLocation()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let currentLocation = locations.last as! CLLocation
-        print(currentLocation)
-    }
-    
-    
 }
 
 extension MainVC { //core data
@@ -125,7 +119,8 @@ extension MainVC { //core data
             if pickedLocations.count > 0 {
                 for result in pickedLocations {
                     let address = result.value(forKey: "address") as! String
-                    enterDestinationBtn.setTitle(address, for: .normal)
+                    enterDestinationLbl.text = "\(address)"
+                    enterDestinationLbl.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
                     print("fetch picked location success")
                 }
             } else {
