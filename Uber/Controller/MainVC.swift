@@ -34,8 +34,9 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         super.viewDidLoad()
         mapKitView.delegate = self
         locationManager.delegate = self
-        centerMapOnUserLocation()
+        
         checkLocationAuthorization()
+        
         requestRideBtn.layer.cornerRadius = 15
         destinationView.layer.cornerRadius = 10
         segmentControl.layer.cornerRadius = 20
@@ -46,6 +47,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        locationManager.startUpdatingLocation()
         fetchPickedLocation()
         
     }
@@ -82,12 +84,13 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     
-    
-    
-    func centerMapOnUserLocation() { //center the map on the user's location
-        guard let coordinate = locationManager.location?.coordinate else { return } //if we have location, show coordinates, if not, return
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, regionRadius * 2.0 , regionRadius * 2.0 ) // we have to multiply the regionradius by 2.0 because it's only one direction but we want 1000 meters in both directions;we're gonna set how wide we want the radius to be around the center location
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.first
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance((location?.coordinate)!, regionRadius * 2.0 , regionRadius * 2.0 ) // we have to multiply the regionradius by 2.0 because it's only one direction but we want 1000 meters in both directions;we're gonna set how wide we want the radius to be around the center location
         mapKitView.setRegion(coordinateRegion, animated: true) //to set it
+        
+        locationManager.stopUpdatingLocation()
     }
     
     
@@ -95,6 +98,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             mapKitView.showsUserLocation = true
+            locationManager.startUpdatingLocation()
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
@@ -102,7 +106,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        centerMapOnUserLocation()
+        locationManager.startUpdatingLocation()
     }
     
 }
