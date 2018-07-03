@@ -8,10 +8,9 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-
-    var carType = CarType.uberPool
     
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet weak var destinationView: UIView!
@@ -21,14 +20,15 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var fareLbl: UILabel!
     @IBOutlet weak var maxSizeLbl: UILabel!
     @IBOutlet weak var requestRideBtn: UIButton!
+    @IBOutlet weak var enterDestinationBtn: UIButton!
     
-
-
-
+    var carType = CarType.uberPool
+    
     var locationManager = CLLocationManager()
     let regionRadius: Double = 1000
     
-    
+    var pickedLocations: [NSManagedObject] = []
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +39,16 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         requestRideBtn.layer.cornerRadius = 15
         destinationView.layer.cornerRadius = 10
         segmentControl.layer.cornerRadius = 20
+        
+        
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchPickedLocation()
+        
+    }
     func configureCarType(etaLbl: String, fareLbl: String, maxSizeLabel: String) {
         self.etaLbl.text = etaLbl
         self.fareLbl.text = fareLbl
@@ -97,6 +105,37 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         centerMapOnUserLocation()
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let currentLocation = locations.last as! CLLocation
+        print(currentLocation)
+    }
+    
+    
+}
+
+extension MainVC { //core data
+    func fetchPickedLocation() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "PickedLocation")
+        
+        do {
+            pickedLocations = try managedContext.fetch(fetchRequest)
+            
+            if pickedLocations.count > 0 {
+                for result in pickedLocations {
+                    let address = result.value(forKey: "address") as! String
+                    enterDestinationBtn.setTitle(address, for: .normal)
+                    print("fetch picked location success")
+                }
+            } else {
+                print("no picked location core data objects")
+            }
+        } catch {
+            print("Could not fetch. \(error.localizedDescription)")
+        }
+        
+    }
 }
 
 

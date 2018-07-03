@@ -200,7 +200,7 @@
         <!--MainVC-->
         <scene sceneID="EmU-QU-5fe">
             <objects>
-                <viewController id="ata-wn-jrf" customClass="MainVC" customModule="Uber" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainVC" id="ata-wn-jrf" customClass="MainVC" customModule="Uber" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H6M-UN-z7H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -456,6 +456,7 @@
                     <connections>
                         <outlet property="carTypeDetailView" destination="CxW-G7-LDW" id="qJn-w7-0pA"/>
                         <outlet property="destinationView" destination="UDW-wL-bUh" id="FZY-KI-hSq"/>
+                        <outlet property="enterDestinationBtn" destination="7Tf-yU-Nys" id="JPi-JO-kg5"/>
                         <outlet property="etaLbl" destination="Ujf-Z1-KWN" id="Dq1-0X-Pgm"/>
                         <outlet property="fareLbl" destination="4r5-DC-syL" id="9c3-jV-lmh"/>
                         <outlet property="mapKitView" destination="8XC-8m-tYj" id="fi8-Wl-mkg"/>

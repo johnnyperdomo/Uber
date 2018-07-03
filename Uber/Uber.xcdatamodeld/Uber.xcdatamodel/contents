@@ -3,6 +3,9 @@
     <entity name="HomeFavorite" representedClassName="HomeFavorite" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="PickedLocation" representedClassName="PickedLocation" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="RecentSearches" representedClassName="RecentSearches" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
@@ -19,8 +22,9 @@
     </entity>
     <elements>
         <element name="HomeFavorite" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="WorkFavorite" positionX="-54" positionY="0" width="128" height="60"/>
         <element name="RecentSearches" positionX="-36" positionY="18" width="128" height="60"/>
         <element name="TripDetails" positionX="-18" positionY="36" width="128" height="135"/>
+        <element name="WorkFavorite" positionX="-54" positionY="0" width="128" height="60"/>
+        <element name="PickedLocation" positionX="-36" positionY="54" width="128" height="60"/>
     </elements>
 </model>

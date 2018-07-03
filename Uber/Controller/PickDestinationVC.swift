@@ -23,9 +23,11 @@ class PickDestinationVC: UIViewController {
     @IBOutlet weak var recentTableView: UITableView!
     @IBOutlet weak var recentSearchesLabel: UILabel!
     
+    
     var homeLocation: [NSManagedObject] = []
     var workLocation: [NSManagedObject] = []
     var recentSearches: [NSManagedObject] = []
+    var pickedLocations: [NSManagedObject] = []
     
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
@@ -59,8 +61,7 @@ class PickDestinationVC: UIViewController {
             recentSearchesLabel.isHidden = false
         }
         
-        
-        print(recentSearches.count)
+        print(pickedLocations.count)
     }
     
     @IBAction func backBtnPressed(_ sender: Any) {
@@ -81,6 +82,7 @@ class PickDestinationVC: UIViewController {
         } else {
             searchBar.text = homeAddressLabel.text
             print("home favorite address clicked")
+            savePickedLocations(address: searchBar.text!)
             dismiss(animated: true, completion: nil)
         }
         
@@ -94,6 +96,7 @@ class PickDestinationVC: UIViewController {
         } else {
             searchBar.text = workAddressLabel.text
             print("work favorite address clicked")
+            savePickedLocations(address: searchBar.text!)
             dismiss(animated: true, completion: nil)
             
         }
@@ -174,6 +177,25 @@ extension PickDestinationVC { //core data functions
             try managedContext.save()
             recentSearches.append(recentSearch) //add it to array
             print("save recent Search Success")
+        } catch {
+            print("Could not save. \(error.localizedDescription)")
+        }
+        
+    }
+    
+    func savePickedLocations(address: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "PickedLocation", in: managedContext)
+        let pickedAddress = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        pickedAddress.setValue(address, forKey: "address")
+        
+        do {
+            try managedContext.save()
+            pickedLocations.append(pickedAddress) //add it to array
+            print("save Picked Location Success")
         } catch {
             print("Could not save. \(error.localizedDescription)")
         }
@@ -281,6 +303,8 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //mult
             searchBar.text = detailTxt
             
             self.saveRecentSearch(address: searchBar.text!)
+            savePickedLocations(address: searchBar.text!)
+            
             print("search cell clicked")
             dismiss(animated: true, completion: nil)
         }
@@ -292,17 +316,14 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //mult
             let address = currentCell.addressLbl.text
             
             searchBar.text = address
+            savePickedLocations(address: searchBar.text!)
             
             print("recent history cell clicked")
-            
             dismiss(animated: true, completion: nil)
             
-
-
         }
         
-        
-        
+    
     }
     
 }
