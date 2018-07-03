@@ -232,7 +232,7 @@
                                 </constraints>
                             </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8XC-8m-tYj">
-                                <rect key="frame" x="0.0" y="87" width="375" height="691"/>
+                                <rect key="frame" x="0.0" y="87" width="375" height="521"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDW-wL-bUh">
                                 <rect key="frame" x="20" y="127" width="335" height="134"/>
@@ -443,7 +443,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.2780522171" green="0.61126830320000003" blue="0.96080166099999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="8XC-8m-tYj" firstAttribute="bottom" secondItem="nkr-K8-a0C" secondAttribute="bottom" id="1AN-Nl-3Jr"/>
                             <constraint firstItem="nkr-K8-a0C" firstAttribute="trailing" secondItem="CxW-G7-LDW" secondAttribute="trailing" id="2Y7-Ki-5VS"/>
                             <constraint firstItem="dcu-gN-Ehd" firstAttribute="top" secondItem="nkr-K8-a0C" secondAttribute="top" id="329-wm-O0D"/>
                             <constraint firstItem="GhA-pH-Q3J" firstAttribute="leading" secondItem="nkr-K8-a0C" secondAttribute="leading" constant="20" id="5Sk-6e-kfi"/>
@@ -458,6 +457,7 @@
                             <constraint firstItem="8XC-8m-tYj" firstAttribute="top" secondItem="dcu-gN-Ehd" secondAttribute="bottom" id="SAI-kS-PUp"/>
                             <constraint firstItem="CxW-G7-LDW" firstAttribute="top" secondItem="UDW-wL-bUh" secondAttribute="bottom" constant="347" id="XhY-Ij-h5i"/>
                             <constraint firstItem="dcu-gN-Ehd" firstAttribute="trailing" secondItem="nkr-K8-a0C" secondAttribute="trailing" id="l0n-JT-ghh"/>
+                            <constraint firstItem="CxW-G7-LDW" firstAttribute="top" secondItem="8XC-8m-tYj" secondAttribute="bottom" id="maz-IG-Fgu"/>
                             <constraint firstItem="8XC-8m-tYj" firstAttribute="leading" secondItem="nkr-K8-a0C" secondAttribute="leading" id="njk-lc-JNk"/>
                             <constraint firstItem="nkr-K8-a0C" firstAttribute="trailing" secondItem="UDW-wL-bUh" secondAttribute="trailing" constant="20" id="xjO-Bi-u5w"/>
                         </constraints>

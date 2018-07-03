@@ -25,15 +25,19 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var carType = CarType.uberPool
     
     var locationManager = CLLocationManager()
+    var currentLocationLatitude = CLLocationDegrees()
+    var currentLocationLongitude = CLLocationDegrees()
+
     let regionRadius: Double = 1000
     
+    
     var pickedLocations: [NSManagedObject] = []
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mapKitView.delegate = self
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
         checkLocationAuthorization()
         
@@ -41,16 +45,19 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         destinationView.layer.cornerRadius = 10
         segmentControl.layer.cornerRadius = 20
         
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         locationManager.startUpdatingLocation()
+        
+        mapRoute()
+        
         fetchPickedLocation()
         
     }
+    
     func configureCarType(etaLbl: String, fareLbl: String, maxSizeLabel: String) {
         self.etaLbl.text = etaLbl
         self.fareLbl.text = fareLbl
@@ -83,9 +90,77 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         }
     }
     
+    func mapRoute() {
+        
+        let sourceLocation = CLLocationCoordinate2D(latitude: currentLocationLatitude, longitude: currentLocationLongitude)
+        let destinationLocation = CLLocationCoordinate2D(latitude: 40.748441, longitude: -73.985564)
+        //
+        let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
+        let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
+        //
+        let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+        let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+        //
+        let sourceAnnotation = MKPointAnnotation()
+        sourceAnnotation.title = "current"
+        
+        if let location = sourcePlacemark.location {
+            sourceAnnotation.coordinate.latitude = location.coordinate.latitude
+            sourceAnnotation.coordinate.longitude = location.coordinate.longitude
+        }
+        
+        
+        let destinationAnnotation = MKPointAnnotation()
+        destinationAnnotation.title = "Empire state building"
+        
+        if let location = destinationPlacemark.location {
+            destinationAnnotation.coordinate = location.coordinate
+        }
+        //
+        self.mapKitView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
+        //
+        let directionRequest = MKDirectionsRequest()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        let directions = MKDirections(request: directionRequest)
+        
+        //
+        directions.calculate { (response, error) in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                return
+            }
+            
+            let route = response.routes[0]
+            self.mapKitView.add(route.polyline, level: MKOverlayLevel.aboveRoads)
+            
+            let rect = route.polyline.boundingMapRect
+            self.mapKitView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
+        }
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        
+        renderer.strokeColor = #colorLiteral(red: 0.2980392157, green: 0.631372549, blue: 0.9254901961, alpha: 1)
+        renderer.lineWidth = 4.0
+        
+        return renderer
+    }
+
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first
+        
+        currentLocationLatitude = (location?.coordinate.latitude)!
+        currentLocationLongitude = (location?.coordinate.longitude)!
         
         let coordinateRegion = MKCoordinateRegionMakeWithDistance((location?.coordinate)!, regionRadius * 2.0 , regionRadius * 2.0 ) // we have to multiply the regionradius by 2.0 because it's only one direction but we want 1000 meters in both directions;we're gonna set how wide we want the radius to be around the center location
         mapKitView.setRegion(coordinateRegion, animated: true) //to set it
@@ -136,6 +211,7 @@ extension MainVC { //core data
         
     }
 }
+
 
 
 
