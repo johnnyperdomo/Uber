@@ -12,6 +12,7 @@
 		FE0A831A20E482190082B235 /* SetWorkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A831920E482190082B235 /* SetWorkVC.swift */; };
 		FE0A831C20E482520082B235 /* PickDestinationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A831B20E482520082B235 /* PickDestinationVC.swift */; };
 		FE54D45820E7052700663E93 /* RecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE54D45720E7052700663E93 /* RecentSearchCell.swift */; };
+		FE65205320ED7FD700A7F084 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65205220ED7FD700A7F084 /* CustomPointAnnotation.swift */; };
 		FE7AA3FE20E433CD00D63819 /* SetHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7AA3FD20E433CD00D63819 /* SetHomeVC.swift */; };
 		FEAD530120E0874F007E3EA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD530020E0874F007E3EA3 /* AppDelegate.swift */; };
 		FEAD530320E0874F007E3EA3 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD530220E0874F007E3EA3 /* SideMenuController.swift */; };
@@ -31,6 +32,7 @@
 		FE0A831920E482190082B235 /* SetWorkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWorkVC.swift; sourceTree = "<group>"; };
 		FE0A831B20E482520082B235 /* PickDestinationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickDestinationVC.swift; sourceTree = "<group>"; };
 		FE54D45720E7052700663E93 /* RecentSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCell.swift; sourceTree = "<group>"; };
+		FE65205220ED7FD700A7F084 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		FE7AA3FD20E433CD00D63819 /* SetHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHomeVC.swift; sourceTree = "<group>"; };
 		FEAD52FD20E0874F007E3EA3 /* Uber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEAD530020E0874F007E3EA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			children = (
 				FE0A831720E443100082B235 /* SearchCompletionCell.swift */,
 				FE54D45720E7052700663E93 /* RecentSearchCell.swift */,
+				FE65205220ED7FD700A7F084 /* CustomPointAnnotation.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				FEAD530920E0874F007E3EA3 /* Uber.xcdatamodeld in Sources */,
 				FE54D45820E7052700663E93 /* RecentSearchCell.swift in Sources */,
 				FE0A831A20E482190082B235 /* SetWorkVC.swift in Sources */,
+				FE65205320ED7FD700A7F084 /* CustomPointAnnotation.swift in Sources */,
 				FEB47A2620E180C9000A6A4F /* MainVC.swift in Sources */,
 				FE7AA3FE20E433CD00D63819 /* SetHomeVC.swift in Sources */,
 				FE0A831C20E482520082B235 /* PickDestinationVC.swift in Sources */,

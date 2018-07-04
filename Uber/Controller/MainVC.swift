@@ -33,7 +33,6 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     let regionRadius: Double = 1000
     
-    
     var pickedLocations: [NSManagedObject] = []
 
     override func viewDidLoad() {
@@ -81,7 +80,6 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         if mapKitView.overlays.count > 0 {
             mapKitView.removeOverlays(mapKitView.overlays)
         }
-        //delete picked location core data
         
     }
     @IBAction func requestRideBtnPressed(_ sender: Any) {
@@ -115,8 +113,9 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         //
-        let sourceAnnotation = MKPointAnnotation()
+        let sourceAnnotation = CustomPointAnnotation()
         sourceAnnotation.title = "Pick Up Location"
+        sourceAnnotation.pinCustomImageName = "pickuppin"
         
         if let location = sourcePlacemark.location {
             sourceAnnotation.coordinate.latitude = location.coordinate.latitude
@@ -124,8 +123,9 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         }
         
         
-        let destinationAnnotation = MKPointAnnotation()
+        let destinationAnnotation = CustomPointAnnotation()
         destinationAnnotation.title = "\(enterDestinationLbl.text ?? "Drop Off Location")" //provide a default value just in case address text isn't available
+        destinationAnnotation.pinCustomImageName = "destinationpin"
         
         //custom annotation
         
@@ -221,7 +221,23 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
     }
     
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseIdentifier = "pin"
+        var annotationView = mapKitView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        if let customPointAnnotation = annotation as? CustomPointAnnotation {
+            annotationView?.image = UIImage(named: customPointAnnotation.pinCustomImageName)
+        }
+        
+        
+        return annotationView
+    }
     
 }
 
