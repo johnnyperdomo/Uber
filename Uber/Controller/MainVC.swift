@@ -25,8 +25,11 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var carType = CarType.uberPool
     
     var locationManager = CLLocationManager()
+    
     var currentLocationLatitude = CLLocationDegrees()
     var currentLocationLongitude = CLLocationDegrees()
+    var destinationLocationLatitude = CLLocationDegrees()
+    var destinationLocationLongitude = CLLocationDegrees()
 
     let regionRadius: Double = 1000
     
@@ -52,9 +55,14 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         locationManager.startUpdatingLocation()
         
-        mapRoute()
-        
+
         fetchPickedLocation()
+        
+        if enterDestinationLbl.text != "Enter Destination" {
+            convertAddress()
+            mapRoute()
+        }
+        
         
     }
     
@@ -69,6 +77,12 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBAction func enterLocationBtnPressed(_ sender: Any) {
         let pickDestinationVC = storyboard?.instantiateViewController(withIdentifier: "PickDestinationVC")
         present(pickDestinationVC!, animated: true, completion: nil)
+        
+        if mapKitView.overlays.count > 0 {
+            mapKitView.removeOverlays(mapKitView.overlays)
+        }
+        //delete picked location core data
+        
     }
     @IBAction func requestRideBtnPressed(_ sender: Any) {
         print("Request Ride")
@@ -93,7 +107,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func mapRoute() {
         
         let sourceLocation = CLLocationCoordinate2D(latitude: currentLocationLatitude, longitude: currentLocationLongitude)
-        let destinationLocation = CLLocationCoordinate2D(latitude: 40.748441, longitude: -73.985564)
+        let destinationLocation = CLLocationCoordinate2D(latitude: destinationLocationLatitude, longitude: destinationLocationLongitude)
         //
         let sourcePlacemark = MKPlacemark(coordinate: sourceLocation, addressDictionary: nil)
         let destinationPlacemark = MKPlacemark(coordinate: destinationLocation, addressDictionary: nil)
@@ -102,7 +116,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         //
         let sourceAnnotation = MKPointAnnotation()
-        sourceAnnotation.title = "current"
+        sourceAnnotation.title = "Pick Up Location"
         
         if let location = sourcePlacemark.location {
             sourceAnnotation.coordinate.latitude = location.coordinate.latitude
@@ -111,7 +125,9 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         
         let destinationAnnotation = MKPointAnnotation()
-        destinationAnnotation.title = "Empire state building"
+        destinationAnnotation.title = "\(enterDestinationLbl.text ?? "Drop Off Location")" //provide a default value just in case address text isn't available
+        
+        //custom annotation
         
         if let location = destinationPlacemark.location {
             destinationAnnotation.coordinate = location.coordinate
@@ -119,7 +135,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         //
         self.mapKitView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
         //
-        let directionRequest = MKDirectionsRequest()
+        let directionRequest = MKDirectionsRequest() //The start and end points of a route, along with the planned mode of transportation.
         directionRequest.source = sourceMapItem
         directionRequest.destination = destinationMapItem
         directionRequest.transportType = .automobile
@@ -159,6 +175,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first
         
+        
         currentLocationLatitude = (location?.coordinate.latitude)!
         currentLocationLongitude = (location?.coordinate.longitude)!
         
@@ -183,6 +200,28 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()
     }
+    
+    func convertAddress() {
+        let geoCoder = CLGeocoder() //An interface for converting between geographic coordinates and place names.
+        
+        geoCoder.geocodeAddressString(enterDestinationLbl.text!) { (placemarks, error) in
+            
+            guard
+                let placemarks = placemarks,
+                let location = placemarks.first?.location
+                else {
+                    return
+            }
+            
+            self.destinationLocationLatitude = location.coordinate.latitude
+            self.destinationLocationLongitude = location.coordinate.longitude
+            print(location.coordinate.latitude)
+            print(location.coordinate.longitude)
+        }
+        
+    }
+    
+    
     
 }
 
