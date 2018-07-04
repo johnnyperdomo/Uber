@@ -79,6 +79,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         if mapKitView.overlays.count > 0 {
             mapKitView.removeOverlays(mapKitView.overlays)
+            mapKitView.removeAnnotations(mapKitView.annotations)
         }
         
     }
@@ -227,6 +228,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            annotationView?.canShowCallout = true
         } else {
             annotationView?.annotation = annotation
         }
