@@ -11,8 +11,6 @@
     </entity>
     <entity name="TripDetails" representedClassName="TripDetails" syncable="YES" codeGenerationType="class">
         <attribute name="carType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="driverImage" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="driverName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dropOffLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pickupLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
@@ -22,9 +20,9 @@
     </entity>
     <elements>
         <element name="HomeFavorite" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="RecentSearches" positionX="-36" positionY="18" width="128" height="60"/>
-        <element name="TripDetails" positionX="-18" positionY="36" width="128" height="135"/>
-        <element name="WorkFavorite" positionX="-54" positionY="0" width="128" height="60"/>
         <element name="PickedLocation" positionX="-36" positionY="54" width="128" height="60"/>
+        <element name="RecentSearches" positionX="-36" positionY="18" width="128" height="60"/>
+        <element name="TripDetails" positionX="-18" positionY="36" width="128" height="105"/>
+        <element name="WorkFavorite" positionX="-54" positionY="0" width="128" height="60"/>
     </elements>
 </model>
