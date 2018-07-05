@@ -26,8 +26,10 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     var locationManager = CLLocationManager()
     
-    var currentHomeAddressName: String?
+    var currentHomeAddressName = String()
     
+    var routeDistance = Double()
+    var routeETA = Double()
     
     var currentLocationLatitude = CLLocationDegrees()
     var currentLocationLongitude = CLLocationDegrees()
@@ -92,16 +94,34 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBAction func carTypePicked(_ sender: Any) {
         if segmentControl.selectedSegmentIndex == 0 {
-            configureCarType(etaLbl: "2 Min", fareLbl: "$3.00 +", maxSizeLabel: "1 Person")
-            carType = .uberPool
-
+            
+            if enterDestinationLbl.text == "Enter Destination" {
+                configureCarType(etaLbl: "TBD", fareLbl: "$3.00 +", maxSizeLabel: "1 Person")
+                carType = .uberPool
+            } else {
+                configureCarType(etaLbl: "\(String(format: "%.0f", routeETA)) Mins", fareLbl: "$\(String(format: "%.2f", (routeDistance * 0.005) + 3))", maxSizeLabel: "1 Person")
+                carType = .uberPool
+            }
+            
         } else if segmentControl.selectedSegmentIndex == 1 {
-            configureCarType(etaLbl: "3 Min", fareLbl: "$8.00 +", maxSizeLabel: "2 People")
-            carType = .uberX
+            
+            if enterDestinationLbl.text == "Enter Destination" {
+                configureCarType(etaLbl: "TBD", fareLbl: "$8.00 +", maxSizeLabel: "2 People")
+                carType = .uberX
+            } else {
+                configureCarType(etaLbl: "\(String(format: "%.0f", routeETA)) Mins", fareLbl: "$\(String(format: "%.2f", (routeDistance * 0.005) + 8))", maxSizeLabel: "2 People")
+                carType = .uberX
+            }
             
         } else if segmentControl.selectedSegmentIndex == 2 {
-            configureCarType(etaLbl: "5 Min", fareLbl: "$15.00 +", maxSizeLabel: "4 People")
-            carType = .uberLux
+            
+            if enterDestinationLbl.text == "Enter Destination" {
+                configureCarType(etaLbl: "TBD", fareLbl: "$15.00 +", maxSizeLabel: "4 People")
+                carType = .uberLux
+            } else {
+                configureCarType(etaLbl: "\(String(format: "%.0f", routeETA)) Mins", fareLbl: "$\(String(format: "%.2f", (routeDistance * 0.005) + 15))", maxSizeLabel: "4 People")
+                carType = .uberLux
+            }
 
         }
     }
@@ -118,7 +138,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         //
         let sourceAnnotation = CustomPointAnnotation()
-        sourceAnnotation.title = "\(currentHomeAddressName ?? "pick up location")"
+        sourceAnnotation.title = "\(currentHomeAddressName)"
         sourceAnnotation.subtitle = "Pick Up Location"
         sourceAnnotation.pinCustomImageName = "pickuppin"
         
@@ -159,8 +179,13 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                 return
             }
             
+            
             let route = response.routes[0]
             self.mapKitView.add(route.polyline, level: MKOverlayLevel.aboveRoads)
+            
+            self.routeDistance = route.distance
+            self.routeETA = route.expectedTravelTime / 60 //in seconds, so divide by 60
+            
             
             let rect = route.polyline.boundingMapRect
             self.mapKitView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
@@ -243,7 +268,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             }
             
             self.currentHomeAddressName = "\(locationName), \(cityName), \(zipNum), \(countryName)"
-            print(self.currentHomeAddressName!)
+            print(self.currentHomeAddressName)
             
         }
     }
