@@ -26,6 +26,9 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     var locationManager = CLLocationManager()
     
+    var currentHomeAddressName: String?
+    
+    
     var currentLocationLatitude = CLLocationDegrees()
     var currentLocationLongitude = CLLocationDegrees()
     var destinationLocationLatitude = CLLocationDegrees()
@@ -54,12 +57,12 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         locationManager.startUpdatingLocation()
         
-
         fetchPickedLocation()
         
         if enterDestinationLbl.text != "Enter Destination" {
             convertAddress()
             mapRoute()
+            convertCoordinates()
         }
         
         
@@ -115,7 +118,8 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         //
         let sourceAnnotation = CustomPointAnnotation()
-        sourceAnnotation.title = "Pick Up Location"
+        sourceAnnotation.title = "\(currentHomeAddressName ?? "pick up location")"
+        sourceAnnotation.subtitle = "Pick Up Location"
         sourceAnnotation.pinCustomImageName = "pickuppin"
         
         if let location = sourcePlacemark.location {
@@ -126,6 +130,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         let destinationAnnotation = CustomPointAnnotation()
         destinationAnnotation.title = "\(enterDestinationLbl.text ?? "Drop Off Location")" //provide a default value just in case address text isn't available
+        destinationAnnotation.subtitle = "Drop Off Location"
         destinationAnnotation.pinCustomImageName = "destinationpin"
         
         //custom annotation
@@ -201,6 +206,48 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationManager.startUpdatingLocation()
     }
+    
+    func convertCoordinates() { //convert coordinates into friendly names
+        let geoCoder = CLGeocoder()
+        
+        var locationName = String()
+        var cityName = String()
+        var zipNum = String()
+        var countryName = String()
+        
+        let location = CLLocation(latitude: currentLocationLatitude, longitude: currentLocationLongitude)
+        geoCoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            
+            //Place Details
+            var placemark: CLPlacemark!
+            placemark = placemarks?[0]
+            
+            //Location Name
+            if let location = placemark.name{
+                locationName = location
+            }
+           
+            //city
+            if let city = placemark.locality {
+                cityName = city
+            }
+            
+            //zipcode
+            if let zip = placemark.postalCode {
+                zipNum = zip
+            }
+            
+            //country
+            if let country = placemark.country {
+                countryName = country
+            }
+            
+            self.currentHomeAddressName = "\(locationName), \(cityName), \(zipNum), \(countryName)"
+            print(self.currentHomeAddressName!)
+            
+        }
+    }
+    
     
     func convertAddress() {
         let geoCoder = CLGeocoder() //An interface for converting between geographic coordinates and place names.
