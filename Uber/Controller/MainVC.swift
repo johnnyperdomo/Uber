@@ -58,16 +58,18 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         locationManager.startUpdatingLocation()
         
-        fetchPickedLocation()
-        
-        if enterDestinationLbl.text != "Enter Destination" {
-            convertAddress()
-            mapRoute()
-            convertCoordinates()
-        } else {
-            userLocationAnnotationView()
+        fetchPickedLocation { (success) in
+            
+            if success {
+                self.convertAddress()
+                self.mapRoute()
+                self.convertCoordinates()
+                print("success")
+            } else {
+                self.userLocationAnnotationView()
+                print("error")
+            }
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,6 +95,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         }
         
     }
+    
     @IBAction func requestRideBtnPressed(_ sender: Any) {
         print("Request Ride")
     }
@@ -336,7 +339,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 }
 
 extension MainVC { //core data
-    func fetchPickedLocation() {
+    func fetchPickedLocation(complete: @escaping (_ status: Bool) -> ()) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
         let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "PickedLocation")
@@ -358,6 +361,7 @@ extension MainVC { //core data
             print("Could not fetch. \(error.localizedDescription)")
         }
         
+        complete(true)
     }
 }
 
