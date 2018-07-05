@@ -11,9 +11,12 @@
     </entity>
     <entity name="TripDetails" representedClassName="TripDetails" syncable="YES" codeGenerationType="class">
         <attribute name="carType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dropOffLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfTravelers" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pickupLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="travelTime" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="WorkFavorite" representedClassName="WorkFavorite" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -22,7 +25,7 @@
         <element name="HomeFavorite" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="PickedLocation" positionX="-36" positionY="54" width="128" height="60"/>
         <element name="RecentSearches" positionX="-36" positionY="18" width="128" height="60"/>
-        <element name="TripDetails" positionX="-18" positionY="36" width="128" height="105"/>
+        <element name="TripDetails" positionX="-18" positionY="36" width="128" height="150"/>
         <element name="WorkFavorite" positionX="-54" positionY="0" width="128" height="60"/>
     </elements>
 </model>

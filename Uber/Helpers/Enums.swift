@@ -9,10 +9,10 @@
 import UIKit
 
 
-enum CarType {
-    case uberPool
-    case uberX
-    case uberLux
+enum CarType: String {
+    case uberPool = "Uber Pool"
+    case uberX = "Uber X"
+    case uberLux = "Uber Lux"
 }
 
 

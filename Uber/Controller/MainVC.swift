@@ -22,7 +22,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var requestRideBtn: UIButton!
     @IBOutlet weak var enterDestinationLbl: UILabel!
     
-    var carType = CarType.uberPool
+    var carType: CarType = .uberPool
     
     var locationManager = CLLocationManager()
     
@@ -97,7 +97,13 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     @IBAction func requestRideBtnPressed(_ sender: Any) {
-        print("Request Ride")
+        
+        if etaLbl.text != "TBD" && etaLbl.text != "0 Mins" {
+
+            guard let tripCompletionVC = storyboard?.instantiateViewController(withIdentifier: "TripCompletionVC") as? TripCompletionVC else { return }
+            tripCompletionVC.initTripDetails(riders: maxSizeLbl.text!, price: fareLbl.text!, tripTime: etaLbl.text!, carType: carType.rawValue, pickUp: currentHomeAddressName, dropOff: enterDestinationLbl.text!)
+            present(tripCompletionVC, animated: true, completion: nil)
+        }
     }
     
     @IBAction func carTypePicked(_ sender: Any) {
