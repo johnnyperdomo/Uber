@@ -31,6 +31,8 @@ class TripCompletionVC: UIViewController {
     var pickUp = String()
     var dropOff = String()
     
+    var fullDate = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,10 +46,15 @@ class TripCompletionVC: UIViewController {
         uberType.text = "Car: \(carType)"
         pickupLbl.text = "From: \(pickUp)"
         dropoffLbl.text = "To: \(dropOff)"
+        
+        dateformatter()
+        
+        dateTimeLbl.text = "\(fullDate)"
+        
     }
 
     @IBAction func completeBtnPressed(_ sender: Any) {
-         
+         dismiss(animated: true, completion: nil)
     }
     
     func initTripDetails(riders: String, price: String, tripTime: String, carType: String, pickUp: String, dropOff: String) {
@@ -59,7 +66,17 @@ class TripCompletionVC: UIViewController {
         self.dropOff = dropOff
     }
     
-    
-    
+    func dateformatter() {
+        let date = Date()
+        let formatter = DateFormatter()
+        
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        
+        let formattedDate = formatter.string(from: date)
+        
+        fullDate = formattedDate
+        
+    }
     
 }
