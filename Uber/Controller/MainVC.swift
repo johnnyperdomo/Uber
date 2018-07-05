@@ -31,6 +31,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var routeDistance = Double()
     var routeETA = Double()
     
+
     var currentLocationLatitude = CLLocationDegrees()
     var currentLocationLongitude = CLLocationDegrees()
     var destinationLocationLatitude = CLLocationDegrees()
@@ -45,8 +46,6 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         mapKitView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        
-        checkLocationAuthorization()
         
         requestRideBtn.layer.cornerRadius = 15
         destinationView.layer.cornerRadius = 10
@@ -65,9 +64,15 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             convertAddress()
             mapRoute()
             convertCoordinates()
+        } else {
+            userLocationAnnotationView()
         }
         
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkLocationAuthorization()
     }
     
     func configureCarType(etaLbl: String, fareLbl: String, maxSizeLabel: String) {
@@ -137,14 +142,15 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         //
+        
         let sourceAnnotation = CustomPointAnnotation()
         sourceAnnotation.title = "\(currentHomeAddressName)"
         sourceAnnotation.subtitle = "Pick Up Location"
         sourceAnnotation.pinCustomImageName = "pickuppin"
         
         if let location = sourcePlacemark.location {
-            sourceAnnotation.coordinate.latitude = location.coordinate.latitude
-            sourceAnnotation.coordinate.longitude = location.coordinate.longitude
+            sourceAnnotation.coordinate = location.coordinate
+            
         }
         
         
@@ -192,6 +198,19 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         }
     }
     
+    func userLocationAnnotationView() {
+        let userLocation = CLLocationCoordinate2D(latitude: currentLocationLatitude, longitude: currentLocationLongitude)
+        let userPlaceMark = MKPlacemark(coordinate: userLocation, addressDictionary: nil)
+        
+        let userAnnotation = CustomPointAnnotation()
+        userAnnotation.pinCustomImageName = "pickuppin"
+        
+        if let location = userPlaceMark.location {
+            userAnnotation.coordinate = location.coordinate
+        }
+        
+        mapKitView.showAnnotations([userAnnotation], animated: true)
+    }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
@@ -295,6 +314,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
         let reuseIdentifier = "pin"
         var annotationView = mapKitView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         
