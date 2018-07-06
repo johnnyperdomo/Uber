@@ -12,6 +12,8 @@
 		FE0A831A20E482190082B235 /* SetWorkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A831920E482190082B235 /* SetWorkVC.swift */; };
 		FE0A831C20E482520082B235 /* PickDestinationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A831B20E482520082B235 /* PickDestinationVC.swift */; };
 		FE54D45820E7052700663E93 /* RecentSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE54D45720E7052700663E93 /* RecentSearchCell.swift */; };
+		FE5FE75220EFA4760041CDA5 /* RecentTripsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE75120EFA4760041CDA5 /* RecentTripsVC.swift */; };
+		FE5FE75420EFA4E00041CDA5 /* TripsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE75320EFA4E00041CDA5 /* TripsCell.swift */; };
 		FE65205320ED7FD700A7F084 /* CustomPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65205220ED7FD700A7F084 /* CustomPointAnnotation.swift */; };
 		FE65205520EE89AB00A7F084 /* TripCompletionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65205420EE89AB00A7F084 /* TripCompletionVC.swift */; };
 		FE7AA3FE20E433CD00D63819 /* SetHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7AA3FD20E433CD00D63819 /* SetHomeVC.swift */; };
@@ -33,6 +35,8 @@
 		FE0A831920E482190082B235 /* SetWorkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetWorkVC.swift; sourceTree = "<group>"; };
 		FE0A831B20E482520082B235 /* PickDestinationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickDestinationVC.swift; sourceTree = "<group>"; };
 		FE54D45720E7052700663E93 /* RecentSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSearchCell.swift; sourceTree = "<group>"; };
+		FE5FE75120EFA4760041CDA5 /* RecentTripsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTripsVC.swift; sourceTree = "<group>"; };
+		FE5FE75320EFA4E00041CDA5 /* TripsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsCell.swift; sourceTree = "<group>"; };
 		FE65205220ED7FD700A7F084 /* CustomPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPointAnnotation.swift; sourceTree = "<group>"; };
 		FE65205420EE89AB00A7F084 /* TripCompletionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCompletionVC.swift; sourceTree = "<group>"; };
 		FE7AA3FD20E433CD00D63819 /* SetHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHomeVC.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 				FE0A831720E443100082B235 /* SearchCompletionCell.swift */,
 				FE54D45720E7052700663E93 /* RecentSearchCell.swift */,
 				FE65205220ED7FD700A7F084 /* CustomPointAnnotation.swift */,
+				FE5FE75320EFA4E00041CDA5 /* TripsCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 				FE0A831920E482190082B235 /* SetWorkVC.swift */,
 				FE0A831B20E482520082B235 /* PickDestinationVC.swift */,
 				FE65205420EE89AB00A7F084 /* TripCompletionVC.swift */,
+				FE5FE75120EFA4760041CDA5 /* RecentTripsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -256,6 +262,7 @@
 			files = (
 				FE0A831820E443100082B235 /* SearchCompletionCell.swift in Sources */,
 				FEAD530920E0874F007E3EA3 /* Uber.xcdatamodeld in Sources */,
+				FE5FE75220EFA4760041CDA5 /* RecentTripsVC.swift in Sources */,
 				FE54D45820E7052700663E93 /* RecentSearchCell.swift in Sources */,
 				FE0A831A20E482190082B235 /* SetWorkVC.swift in Sources */,
 				FE65205320ED7FD700A7F084 /* CustomPointAnnotation.swift in Sources */,
@@ -265,6 +272,7 @@
 				FEAD530320E0874F007E3EA3 /* SideMenuController.swift in Sources */,
 				FEAD530120E0874F007E3EA3 /* AppDelegate.swift in Sources */,
 				FEB47A2E20E1969D000A6A4F /* Enums.swift in Sources */,
+				FE5FE75420EFA4E00041CDA5 /* TripsCell.swift in Sources */,
 				FE65205520EE89AB00A7F084 /* TripCompletionVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
