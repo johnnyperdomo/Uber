@@ -46,6 +46,10 @@ class SideMenuController: UIViewController {
         present(setWorkVC!, animated: true, completion: nil)
     }
     
+    @IBAction func recentTripsBtnPressed(_ sender: Any) { 
+        let recentTripsVC = storyboard?.instantiateViewController(withIdentifier: "RecentTripsVC")
+        present(recentTripsVC!, animated: true, completion: nil)
+    }
     
     func fetchHomeFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
