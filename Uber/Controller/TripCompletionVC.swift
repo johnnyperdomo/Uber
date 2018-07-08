@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TripCompletionVC: UIViewController {
 
@@ -24,6 +25,8 @@ class TripCompletionVC: UIViewController {
     @IBOutlet weak var pickupLbl: UILabel!
     @IBOutlet weak var dropoffLbl: UILabel!
     
+    var tripDetails: [NSManagedObject] = []
+
     var riders = String()
     var price = String()
     var tripTime = String()
@@ -54,6 +57,7 @@ class TripCompletionVC: UIViewController {
     }
 
     @IBAction func completeBtnPressed(_ sender: Any) {
+         saveTrip()
          dismiss(animated: true, completion: nil)
     }
     
@@ -78,5 +82,39 @@ class TripCompletionVC: UIViewController {
         fullDate = formattedDate
         
     }
+    
+    func saveTrip() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "TripDetails", in: managedContext)
+        
+//        let pickUpObject = NSManagedObject(entity: entity!, insertInto: managedContext)
+//        let dropOffObject = NSManagedObject(entity: entity!, insertInto: managedContext)
+//        let ridersObject = NSManagedObject(entity: entity!, insertInto: managedContext)
+//        let priceObject = NSManagedObject(entity: entity!, insertInto: managedContext)
+//        let carTypeObject = NSManagedObject(entity: entity!, insertInto: managedContext)
+//        let dateTimeObject = NSManagedObject(entity: entity!, insertInto: managedContext)
+        let tripCompleted = NSManagedObject(entity: entity!, insertInto: managedContext)
+        
+        tripCompleted.setValue(pickUp, forKey: "pickupLocation")
+        tripCompleted.setValue(dropOff, forKey: "dropOffLocation")
+        tripCompleted.setValue(riders, forKey: "numberOfTravelers")
+        tripCompleted.setValue(price, forKey: "price")
+        tripCompleted.setValue(carType, forKey: "carType")
+        tripCompleted.setValue(fullDate, forKey: "dateTime")
+        tripCompleted.setValue(tripTime, forKey: "travelTime")
+
+        
+        do {
+            try managedContext.save()
+            tripDetails.append(tripCompleted) //add it to array
+            print("save trip completed Success")
+        } catch {
+            print("Could not save. \(error.localizedDescription)")
+        }
+        
+    }
+    
     
 }
