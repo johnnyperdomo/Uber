@@ -12,12 +12,15 @@ import CoreData
 
 class SetHomeVC: UIViewController  {
 
+    //IBOutlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
     
+    //Local Search
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
-    var homeLocation: [NSManagedObject] = []
+    
+    var homeLocation: [NSManagedObject] = [] //Core Data Object
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +30,18 @@ class SetHomeVC: UIViewController  {
         searchTableView.dataSource = self
     }
 
-    
+    //IBActions
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-  
+}
+
+extension SetHomeVC { //Core Data
+    
     func saveAddress(address: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-
+        
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "HomeFavorite", in: managedContext)
         let homeFavorite = NSManagedObject(entity: entity!, insertInto: managedContext)
@@ -49,12 +55,12 @@ class SetHomeVC: UIViewController  {
         } catch {
             print("Could not save. \(error.localizedDescription)")
         }
- 
+        
     }
-    
 }
 
-extension SetHomeVC: UITableViewDelegate, UITableViewDataSource {
+
+extension SetHomeVC: UITableViewDelegate, UITableViewDataSource { //Table Views
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -62,7 +68,6 @@ extension SetHomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "searchCompletionCell", for: indexPath) as? SearchCompletionCell else {return UITableViewCell()}
@@ -89,7 +94,7 @@ extension SetHomeVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension SetHomeVC: MKLocalSearchCompleterDelegate {
+extension SetHomeVC: MKLocalSearchCompleterDelegate { //Local Search Completer for search bar: Auto completes locations / addresses that user starts typing
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
@@ -97,7 +102,7 @@ extension SetHomeVC: MKLocalSearchCompleterDelegate {
     }
 }
 
-extension SetHomeVC: UISearchBarDelegate {
+extension SetHomeVC: UISearchBarDelegate { // Search Bar
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

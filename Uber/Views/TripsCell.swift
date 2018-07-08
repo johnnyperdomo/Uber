@@ -19,7 +19,6 @@ class TripsCell: UITableViewCell {
     @IBOutlet weak var priceLbl: UILabel!
     @IBOutlet weak var driverImage: UIImageView!
     
-
     func configureCell(carType: String, dateTime: String, pickUp: String, destination: String, tripTime: String, riders: String, price: String) {
         self.carTypeLbl.text = carType
         self.dateTimeLbl.text = dateTime
@@ -29,6 +28,4 @@ class TripsCell: UITableViewCell {
         self.ridersLbl.text = riders
         self.priceLbl.text = price
     }
-    
-    
 }

@@ -10,8 +10,9 @@ import UIKit
 import MapKit
 import CoreData
 
-class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MainVC: UIViewController {
     
+    //IBOutlets
     @IBOutlet weak var mapKitView: MKMapView!
     @IBOutlet weak var destinationView: UIView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
@@ -22,16 +23,15 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var requestRideBtn: UIButton!
     @IBOutlet weak var enterDestinationLbl: UILabel!
     
-    var carType: CarType = .uberPool
+    var carType: CarType = .uberPool //CarType Enum
     
-    var locationManager = CLLocationManager()
-    
-    var currentHomeAddressName = String()
-    
-    var routeDistance = Double()
-    var routeETA = Double()
-    
+    var locationManager = CLLocationManager() //Manages User Location
+    var currentLocationAddressName = String() //Name of Current Location: String
 
+    var routeDistance = Double() //Distance of Route
+    var routeETA = Double() //Travel Time of Route
+    
+    //Coordinates of Locations
     var currentLocationLatitude = CLLocationDegrees()
     var currentLocationLongitude = CLLocationDegrees()
     var destinationLocationLatitude = CLLocationDegrees()
@@ -39,7 +39,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     let regionRadius: Double = 1000
     
-    var pickedLocations: [NSManagedObject] = []
+    var pickedLocations: [NSManagedObject] = [] //Core Data Object
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +50,12 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         requestRideBtn.layer.cornerRadius = 15
         destinationView.layer.cornerRadius = 10
         segmentControl.layer.cornerRadius = 20
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingLocation() //Starts the generation of updates that report the user’s current location.
         
         fetchPickedLocation { (success) in
             
@@ -69,6 +68,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                 self.userLocationAnnotationView()
                 print("error")
             }
+            
         }
     }
     
@@ -83,8 +83,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         self.maxSizeLbl.text = maxSizeLabel
     }
     
-    
-    
+    //IBActions
     @IBAction func enterLocationBtnPressed(_ sender: Any) {
         let pickDestinationVC = storyboard?.instantiateViewController(withIdentifier: "PickDestinationVC")
         present(pickDestinationVC!, animated: true, completion: nil)
@@ -99,11 +98,11 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBAction func requestRideBtnPressed(_ sender: Any) {
         
         if etaLbl.text != "TBD" && etaLbl.text != "0 Mins" {
-
             guard let tripCompletionVC = storyboard?.instantiateViewController(withIdentifier: "TripCompletionVC") as? TripCompletionVC else { return }
-            tripCompletionVC.initTripDetails(riders: maxSizeLbl.text!, price: fareLbl.text!, tripTime: etaLbl.text!, carType: carType.rawValue, pickUp: currentHomeAddressName, dropOff: enterDestinationLbl.text!)
+            tripCompletionVC.initTripDetails(riders: maxSizeLbl.text!, price: fareLbl.text!, tripTime: etaLbl.text!, carType: carType.rawValue, pickUp: currentLocationAddressName, dropOff: enterDestinationLbl.text!)
             present(tripCompletionVC, animated: true, completion: nil)
         }
+        
     }
     
     @IBAction func carTypePicked(_ sender: Any) {
@@ -139,7 +138,9 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
         }
     }
-    
+}
+
+extension MainVC: CLLocationManagerDelegate, MKMapViewDelegate { //Maps
     func mapRoute() {
         
         let sourceLocation = CLLocationCoordinate2D(latitude: currentLocationLatitude, longitude: currentLocationLongitude)
@@ -151,9 +152,8 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
         let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
         //
-        
         let sourceAnnotation = CustomPointAnnotation()
-        sourceAnnotation.title = "\(currentHomeAddressName)"
+        sourceAnnotation.title = "\(currentLocationAddressName)"
         sourceAnnotation.subtitle = "Pick Up Location"
         sourceAnnotation.pinCustomImageName = "pickuppin"
         
@@ -161,18 +161,17 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             sourceAnnotation.coordinate = location.coordinate
             
         }
-        
-        
+
         let destinationAnnotation = CustomPointAnnotation()
         destinationAnnotation.title = "\(enterDestinationLbl.text ?? "Drop Off Location")" //provide a default value just in case address text isn't available
         destinationAnnotation.subtitle = "Drop Off Location"
         destinationAnnotation.pinCustomImageName = "destinationpin"
         
         //custom annotation
-        
         if let location = destinationPlacemark.location {
             destinationAnnotation.coordinate = location.coordinate
         }
+        
         //
         self.mapKitView.showAnnotations([sourceAnnotation, destinationAnnotation], animated: true)
         //
@@ -182,7 +181,6 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         directionRequest.transportType = .automobile
         
         let directions = MKDirections(request: directionRequest)
-        
         //
         directions.calculate { (response, error) in
             
@@ -198,9 +196,8 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             let route = response.routes[0]
             self.mapKitView.add(route.polyline, level: MKOverlayLevel.aboveRoads)
             
-            self.routeDistance = route.distance
+            self.routeDistance = route.distance //distance of route in meters
             self.routeETA = route.expectedTravelTime / 60 //in seconds, so divide by 60
-            
             
             let rect = route.polyline.boundingMapRect
             self.mapKitView.setRegion(MKCoordinateRegionForMapRect(rect), animated: true)
@@ -229,11 +226,10 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
         return renderer
     }
-
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.first
-        
         
         currentLocationLatitude = (location?.coordinate.latitude)!
         currentLocationLongitude = (location?.coordinate.longitude)!
@@ -279,7 +275,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             if let location = placemark.name{
                 locationName = location
             }
-           
+            
             //city
             if let city = placemark.locality {
                 cityName = city
@@ -295,15 +291,15 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
                 countryName = country
             }
             
-            self.currentHomeAddressName = "\(locationName), \(cityName), \(zipNum), \(countryName)"
-            print(self.currentHomeAddressName)
+            self.currentLocationAddressName = "\(locationName), \(cityName), \(zipNum), \(countryName)"
+            print(self.currentLocationAddressName)
             
         }
     }
     
     
-    func convertAddress() {
-        let geoCoder = CLGeocoder() //An interface for converting between geographic coordinates and place names.
+    func convertAddress() { //An interface for converting between geographic coordinates and place names.
+        let geoCoder = CLGeocoder()
         
         geoCoder.geocodeAddressString(enterDestinationLbl.text!) { (placemarks, error) in
             
@@ -322,7 +318,7 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
         
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { //custom annotation
         
         let reuseIdentifier = "pin"
         var annotationView = mapKitView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
@@ -338,13 +334,11 @@ class MainVC: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
             annotationView?.image = UIImage(named: customPointAnnotation.pinCustomImageName)
         }
         
-        
         return annotationView
     }
-    
 }
 
-extension MainVC { //core data
+extension MainVC { //Core Data
     func fetchPickedLocation(complete: @escaping (_ status: Bool) -> ()) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let managedContext = appDelegate.persistentContainer.viewContext //need a managed object

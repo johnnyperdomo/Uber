@@ -30,12 +30,6 @@ class SideMenuController: UIViewController {
         fetchWorkFavorite()
     }
     
-    
-    func sideMenuCustom() {
-        sideMenu.menuFadeStatusBar = false
-    }
-    
-    
     @IBAction func homeLocationBtnPressed(_ sender: Any) {
         let setHomeVC = storyboard?.instantiateViewController(withIdentifier: "SetHomeVC")
         present(setHomeVC!, animated: true, completion: nil)
@@ -50,6 +44,14 @@ class SideMenuController: UIViewController {
         let recentTripsVC = storyboard?.instantiateViewController(withIdentifier: "RecentTripsVC")
         present(recentTripsVC!, animated: true, completion: nil)
     }
+    
+    func sideMenuCustom() { //Draws the menuAnimationBackgroundColor behind the status bar. Default is true.
+        sideMenu.menuFadeStatusBar = false
+    }
+    
+}
+
+extension SideMenuController { //Core Data Functions
     
     func fetchHomeFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -68,6 +70,7 @@ class SideMenuController: UIViewController {
             } else {
                 print("no home core data objects")
             }
+            
         } catch {
             print("Could not fetch. \(error.localizedDescription)")
         }
@@ -91,6 +94,7 @@ class SideMenuController: UIViewController {
             } else {
                 print("no work core data objects")
             }
+            
         } catch {
             print("Could not fetch. \(error.localizedDescription)")
         }

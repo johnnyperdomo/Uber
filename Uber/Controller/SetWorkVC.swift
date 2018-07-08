@@ -12,14 +12,15 @@ import CoreData
 
 class SetWorkVC: UIViewController {
 
+    //IBOutlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
     
+    //Local Search
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
-    var workLocation: [NSManagedObject] = []
     
-    
+    var workLocation: [NSManagedObject] = [] //Core Data Object
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +30,14 @@ class SetWorkVC: UIViewController {
         searchTableView.dataSource = self
     }
     
-    
+    //IBActions
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
+}
+
+extension SetWorkVC { //Core Data
     
     func saveAddress(address: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -50,12 +55,13 @@ class SetWorkVC: UIViewController {
         } catch {
             print("Could not save. \(error.localizedDescription)")
         }
-        
-        
+    
     }
 }
 
-extension SetWorkVC: UITableViewDelegate, UITableViewDataSource {
+
+extension SetWorkVC: UITableViewDelegate, UITableViewDataSource { //Table Views
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -63,7 +69,6 @@ extension SetWorkVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "searchCompletionCell", for: indexPath) as? SearchCompletionCell else {return UITableViewCell()}
@@ -90,7 +95,7 @@ extension SetWorkVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension SetWorkVC: MKLocalSearchCompleterDelegate {
+extension SetWorkVC: MKLocalSearchCompleterDelegate { //Local Search Completer for search bar: Auto completes locations / addresses that user starts typing
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
@@ -98,7 +103,7 @@ extension SetWorkVC: MKLocalSearchCompleterDelegate {
     }
 }
 
-extension SetWorkVC: UISearchBarDelegate {
+extension SetWorkVC: UISearchBarDelegate { //Search Bar
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

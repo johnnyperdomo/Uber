@@ -11,7 +11,7 @@ import CoreData
 
 class TripCompletionVC: UIViewController {
 
-
+    //IBOutlets
     @IBOutlet weak var dateTimeLbl: UILabel!
     @IBOutlet weak var driverImage: UIImageView!
     @IBOutlet weak var driverName: UILabel!
@@ -25,15 +25,15 @@ class TripCompletionVC: UIViewController {
     @IBOutlet weak var pickupLbl: UILabel!
     @IBOutlet weak var dropoffLbl: UILabel!
     
-    var tripDetails: [NSManagedObject] = []
+    var tripDetails: [NSManagedObject] = [] //Core Data Object
 
+    //values to store trip completion values
     var riders = String()
     var price = String()
     var tripTime = String()
     var carType = String()
     var pickUp = String()
     var dropOff = String()
-    
     var fullDate = String()
     
     override func viewDidLoad() {
@@ -53,15 +53,16 @@ class TripCompletionVC: UIViewController {
         dateformatter()
         
         dateTimeLbl.text = "\(fullDate)"
-        
     }
-
+    
+    //IBActions
     @IBAction func completeBtnPressed(_ sender: Any) {
          saveTrip()
          dismiss(animated: true, completion: nil)
     }
     
-    func initTripDetails(riders: String, price: String, tripTime: String, carType: String, pickUp: String, dropOff: String) {
+    //Functions
+    func initTripDetails(riders: String, price: String, tripTime: String, carType: String, pickUp: String, dropOff: String) { //transfer data from another VC
         self.riders = riders
         self.price = price
         self.tripTime = tripTime
@@ -70,7 +71,7 @@ class TripCompletionVC: UIViewController {
         self.dropOff = dropOff
     }
     
-    func dateformatter() {
+    func dateformatter() { //format the date to a custom Date() style
         let date = Date()
         let formatter = DateFormatter()
         
@@ -78,23 +79,19 @@ class TripCompletionVC: UIViewController {
         formatter.timeStyle = .short
         
         let formattedDate = formatter.string(from: date)
-        
+    
         fullDate = formattedDate
-        
     }
+    
+}
+
+extension TripCompletionVC { //Core Data
     
     func saveTrip() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "TripDetails", in: managedContext)
-        
-//        let pickUpObject = NSManagedObject(entity: entity!, insertInto: managedContext)
-//        let dropOffObject = NSManagedObject(entity: entity!, insertInto: managedContext)
-//        let ridersObject = NSManagedObject(entity: entity!, insertInto: managedContext)
-//        let priceObject = NSManagedObject(entity: entity!, insertInto: managedContext)
-//        let carTypeObject = NSManagedObject(entity: entity!, insertInto: managedContext)
-//        let dateTimeObject = NSManagedObject(entity: entity!, insertInto: managedContext)
         let tripCompleted = NSManagedObject(entity: entity!, insertInto: managedContext)
         
         tripCompleted.setValue(pickUp, forKey: "pickupLocation")
@@ -104,7 +101,6 @@ class TripCompletionVC: UIViewController {
         tripCompleted.setValue(carType, forKey: "carType")
         tripCompleted.setValue(fullDate, forKey: "dateTime")
         tripCompleted.setValue(tripTime, forKey: "travelTime")
-
         
         do {
             try managedContext.save()
@@ -113,8 +109,5 @@ class TripCompletionVC: UIViewController {
         } catch {
             print("Could not save. \(error.localizedDescription)")
         }
-        
     }
-    
-    
 }

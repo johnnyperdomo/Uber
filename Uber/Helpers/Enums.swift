@@ -8,12 +8,9 @@
 
 import UIKit
 
-
+//Type of Car Chosen
 enum CarType: String {
     case uberPool = "Uber Pool"
     case uberX = "Uber X"
     case uberLux = "Uber Lux"
 }
-
-
-
