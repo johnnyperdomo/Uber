@@ -21,6 +21,7 @@ iOS Ride-Sharing App written in Swift 4 Using Map Kit and Core Data
   ```
   
 - **Save and fetch user data using ```Core Data```**
+- **Fully customizable Side Menu by [jonkykong](https://github.com/jonkykong/SideMenu)**
 - **Set personal favorite locations**
 - **See recently searched locations for reusable access**
 - **Track current location using ```CLLocationManager()```**
@@ -59,11 +60,10 @@ import SideMenu // project library used to implement a customized side menu
 ```
 
 **_Pod Files_**
-
-[Side Menu Library by jonkykong](https://github.com/jonkykong/SideMenu)
 ```swift
 pod 'SideMenu' 
 ```
+[Side Menu Library by jonkykong](https://github.com/jonkykong/SideMenu)
 
 ## Project Configuration
 You'll have to configure your Xcode project in order to track user Location with ```Map Kit```.
