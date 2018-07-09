@@ -2,6 +2,7 @@
 iOS Ride-Sharing App written in Swift 4 Using Map Kit and Core Data 
 
 ## Preview
+![Alt Text](https://media.giphy.com/media/SHdVSifyFVHGQalgLE/giphy.gif)
 
 **Built with**
 - Ios 11.4
